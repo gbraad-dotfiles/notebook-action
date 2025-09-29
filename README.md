@@ -11,7 +11,7 @@ Use dotfiles' `notebook`-command for Jupyter notebook execution
         uses: gbraad-dotfiles/install-action@main
         
       - name: Excute example notebook
-        uses: gbraad-dotfiles/app-action@main
+        uses: gbraad-dotfiles/notebook-action@main
         with:
           notebook: examples/notebook.ipynb   # or .md
           command: execute
