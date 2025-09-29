@@ -1,0 +1,32 @@
+name: "gbraad's Dotfiles `notebook` Action"
+description: 'Wrapper for notebook command for Jupyter notebook execution on GitHub runners'
+author: "Gerard Braad <me@gbraad.nl>"
+inputs:
+  notebook:
+    description: 'The notebook path'
+    required: true
+    default: ''
+  command:
+    description: 'Command to execute (execute, sync, convert, etc. otherwise default)'
+    required: false
+    default: 'execute'
+  as_user:
+    description: 'User to run the commands as (optional)'
+    required: false
+    default: ""
+runs:
+  using: 'composite'
+  steps:
+    - name: Execute notebook command
+      uses: gbraad-actions/zsh-action@main
+      with:
+        as_user: ${{ inputs.as_user }}
+        run: |
+          # Check if notebook function exists
+          if ! type notebook >/dev/null 2>&1; then
+            echo "Error: notebook function is not defined. Please make sure to run install first"
+            exit 1
+          fi
+          
+          # Execute notebook command
+          notebook ${{ inputs.notebook }} ${{ inputs.command }}
